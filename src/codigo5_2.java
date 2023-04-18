@@ -7,23 +7,35 @@ public class codigo5_2 {
         boolean valido;
         String codigo = "";
         int verificador = 0;
+        byte cont;
 
         do {
             do{
                 System.out.printf("Insira os numeros: ");
-                numero = leia.next(); //"821 324 312 69"
-            }while (numero.length() < 11 || numero.length() > 11);
-            try{
-                codigo = numero.substring(0,9);
-                verificador = Integer.parseInt(numero.substring(9));;
-                valido = true;
-            }catch (NumberFormatException e){
-                System.out.printf("O codigo digitado não pode ser convertido ! Digite Novamente\n");
-                valido = false;
-            }
-        }while(! valido);
+                numero = leia.next(); //"821 324 312 24
+                                    //82132431224
+            }while (numero.length() != 11);
 
-        calcularCodigo(codigo);
+            if(numero.equalsIgnoreCase("fim")){
+                break;
+            }
+
+            if(numero.length() != 11){
+                System.out.printf("Quantidade invalida\n");
+            }
+            else{
+                try{
+                    for(cont = 0; cont < 11; cont++){
+                        Character.digit(numero.charAt(cont), 10);
+                    }
+                }catch(Exception e){
+                    System.out.printf("Todos não foram válidos\n");
+                }
+            }
+
+        }while(numero.equalsIgnoreCase("fim"));
+
+        calcularCodigo(numero);
 
         System.out.printf("Finalizado!!!\n");
 
@@ -33,20 +45,19 @@ public class codigo5_2 {
         int multi = 1;
         int ver1 , ver2;
 
-        for(byte i = 0; i < cod1.length(); i++){
+        for(byte i = 0; i < 9; i++){
             soma += Character.digit(cod1.charAt(i), 10);
             multi *= Character.digit(cod1.charAt(i),10);
         }
-        ver1 = soma;
-        ver2 = multi;
+        ver1 = soma / 10;
+        ver2 = multi - ((multi / 10) * 10);
 
-        if(ver1 == ver2){
+        if(ver1 == Character.digit(cod1.charAt(9),10) && ver2 == Character.digit(cod1.charAt(10),10) ){
             System.out.printf("Digito Correto\n");
         }
         else{
-            System.out.printf("Digito invalido\n");
+            System.out.printf("Digito Errado\n");
         }
-
 
     }
 
