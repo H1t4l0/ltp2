@@ -44,6 +44,7 @@ public class contaTelefone5_3 {
         System.out.printf("Valor da conta %.2f", valorTotal);
 
     }
+    //se HH está entre 0 e 23 e MM está entre 0 e 59.
     public static boolean horaEhValida(int h1, int h2, int m1, int m2){
         boolean horario = false;
         if((h1 >= 0 || h2 >= 0) && (h1 <= 23 || h2 <= 23)){
@@ -57,11 +58,22 @@ public class contaTelefone5_3 {
     }
     public static float calcularTelefone(int h1, int h2, int m1, int m2){
         float valorConta = 0;
-        if(h1 >= 0 && h2 < 6){
-            valorConta = (((h2 - h1) * 60) + (m2-m1)) * (float)0.15;
+        float ligMin = 0;
+        // 02:00, 03:00
+        if(h1 >= 0 && h1 < 6){
+            ligMin = (float)0.10;
+        }
+        else if(h1 >= 6){
+            ligMin = (float)0.15;
+        }
+        else if(h1 >= 8){
+            ligMin = (float)0.20;
+        }
+        else if(h1 >= 18){
+            ligMin = (float)0.15;
         }
 
-        return valorConta;
+        return  valorConta = (((h2 - h1) * 60) + (m2 - m1)) * ligMin;
     }
 
 }
